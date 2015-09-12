@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">AndroTSH</string>
+    <string name="title_activity_server_settings">Servers</string>
+
+    <string name="upload_file">Upload File</string>
+    <string name="add_server">Add Server</string>
+    <string name="preferences">Preferences</string>
+
+    <string name="message">Copied URLs</string>
+    <string name="prune">Remove expired entries</string>
+    <string name="toast_copy">Copied links to clipboard</string>
+    <string name="toast_copy_zip">Copied zipped links to clipboard</string>
+    <string name="header_share">Share links!</string>
+    <string name="header_share_zip">Share zipped links!</string>
+    <string name="select_items">Select items</string>
+    <string name="single_item">1 item selected</string>
+    <string name="multiple_items">%1$s items selected</string>
+    <string name="picked_multiple">Picked %1$s files</string>
+    <string name="picked_single">Picked 1 file</string>
+    <string name="choose_files">Choose files to upload</string>
+    <string name="copy">Copy</string>
+    <string name="share">Share</string>
+    <string name="copy_zip">Copy as ZIP</string>
+    <string name="share_zip">Share as ZIP</string>
+    <string-array name="server_prefixes">
+        <item>http://</item>
+        <item>https://</item>
+    </string-array>
+</resources>
