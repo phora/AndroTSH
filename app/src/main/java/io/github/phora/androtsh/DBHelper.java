@@ -134,8 +134,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         c.close();
         if (id_holders.size() > 0) {
-            db.delete(TABLE_UPLOADS, String.format("_id IN (%s)", makePlaceholders(id_holders.size())),
-                    id_holders.toArray(new String[id_holders.size()]));
+            int count = id_holders.size();
+            String whereClause = String.format("_id IN (%s)", makePlaceholders(id_holders.size()));
+            String[] whereArgs = new String[count];
+            for (int i = 0; i < count; i++) {
+                whereArgs[i] = id_holders.get(i).toString();
+            }
+            db.delete(TABLE_UPLOADS, whereClause, whereArgs);
         }
     }
 
