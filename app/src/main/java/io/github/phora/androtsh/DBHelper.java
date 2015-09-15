@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private final static String SERVERS_CREATE = "CREATE TABLE " + TABLE_SERVERS +
             " ( " + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + BASE_URL + " TEXT NOT NULL, "
+            + BASE_URL + " TEXT NOT NULL UNIQUE, "
             + SERVER_DEFAULT + " INT, "
             + SERVER_DURATION + " INT)";
 
