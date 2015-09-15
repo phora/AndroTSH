@@ -1,8 +1,10 @@
 package io.github.phora.androtsh.activities;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -135,8 +137,15 @@ public class ServersFragment extends ListFragment {
 
         DBHelper sql_helper = DBHelper.getInstance(getActivity().getApplicationContext());
         //add support for changing duration when transfer.sh and similar sites support it
-        sql_helper.addServer(prefix + mUrlEdit.getText().toString(), 14);
-
-        serv_adap.swapCursor(sql_helper.getAllServers(false));
+        try {
+            sql_helper.addServer(prefix + mUrlEdit.getText().toString(), 14);
+            serv_adap.swapCursor(sql_helper.getAllServers(false));
+        } catch (SQLiteConstraintException e) {
+            AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+            b.setTitle(getString(R.string.server_exists));
+            b.setMessage(getString(R.string.server_exists_msg));
+            b.setPositiveButton(R.string.OK, null);
+            b.create().show();
+        }
     }
 }

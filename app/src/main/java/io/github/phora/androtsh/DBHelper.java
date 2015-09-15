@@ -78,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(SERVER_DURATION, server_duration);
         cv.put(SERVER_DEFAULT, false);
 
-        getWritableDatabase().insert(TABLE_SERVERS, null, cv);
+        getWritableDatabase().insertOrThrow(TABLE_SERVERS, null, cv);
     }
 
     public long addUpload(String base_url, String token, String fpath) {

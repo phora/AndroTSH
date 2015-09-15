@@ -22,6 +22,9 @@
     <string name="share">Share</string>
     <string name="copy_zip">Copy as ZIP</string>
     <string name="share_zip">Share as ZIP</string>
+    <string name="server_exists">Already have server</string>
+    <string name="server_exists_msg">Please enter a url that you don\'t have yet.</string>
+    <string name="OK">OK</string>
     <string-array name="server_prefixes">
         <item>http://</item>
         <item>https://</item>
