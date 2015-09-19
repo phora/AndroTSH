@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AndroTSH</string>
     <string name="title_activity_server_settings">Servers</string>
+    <string name="about_ver">Version %1$s</string>
+    <string name="about_app">About %1$s</string>
 
     <string name="upload_file">Upload File</string>
     <string name="add_server">Add Server</string>
@@ -25,6 +27,10 @@
     <string name="server_exists">Already have server</string>
     <string name="server_exists_msg">Please enter a url that you don\'t have yet.</string>
     <string name="OK">OK</string>
+    <string name="action_about">About</string>
+    <string name="site_url">https://github.com/phora/AndroTSH</string>
+    <string name="email">phora.public@outlook.com</string>
+    <string name="about_desc">Released under the GNU GPLv3 license.</string>
     <string-array name="server_prefixes">
         <item>http://</item>
         <item>https://</item>
