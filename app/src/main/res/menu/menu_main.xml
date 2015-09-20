@@ -5,10 +5,10 @@
           android:icon="@drawable/ic_menu_prune"
           android:showAsAction="ifRoom"
           android:title="@string/Action.Prune"/>
-    <item android:id="@+id/action_preferences"
+    <item android:id="@+id/action_settings"
           android:icon="@android:drawable/ic_menu_preferences"
           android:showAsAction="ifRoom"
-          android:title="@string/Action.Preferences"/>
+          android:title="@string/Action.Settings"/>
     <item
         android:id="@+id/action_about"
         android:title="@string/Action.About"

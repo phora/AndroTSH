@@ -25,7 +25,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/spinner"
             android:layout_weight="0.5"
-            android:entries="@array/ServersFragment.Prefixes"/>
+            android:entries="@array/UrlPrefixes"/>
 
         <EditText
             android:layout_width="0dip"

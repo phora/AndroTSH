@@ -4,10 +4,10 @@
               android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView android:id="@+id/serverUrl"
+    <TextView android:id="@+id/ServerItem.Url"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
-    <TextView android:id="@+id/expiry"
+    <TextView android:id="@+id/ServerItem.Expiry"
          android:layout_height="wrap_content"
          android:layout_width="match_parent"/>
 

@@ -6,7 +6,7 @@
     <string name="MainActivity.PickedSingle">Picked 1 file</string>
     <string name="MainActivity.ChooseFiles">Choose files to upload</string>
 
-    <string name="Action.Preferences">Preferences</string>
+    <string name="Action.Settings">Settings</string>
     <string name="Action.About">About</string>
     <string name="Action.Prune">Remove expired entries</string>
 

@@ -4,12 +4,12 @@
               android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <CheckedTextView android:id="@+id/serverUrl"
+    <CheckedTextView android:id="@+id/ServerItem.Url"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:checkMark="?android:attr/listChoiceIndicatorSingle" />
 
-    <TextView android:id="@+id/expiry"
+    <TextView android:id="@+id/ServerItem.Expiry"
          android:layout_height="wrap_content"
          android:layout_width="match_parent"/>
 

@@ -279,7 +279,7 @@ public class MainActivity extends ExpandableListActivity {
         });
 
         String[] serverData = {"base_url", "expiry"};
-        int[] serverRsc = {R.id.server_url, R.id.expiry};
+        int[] serverRsc = {R.id.ServerItem_Url, R.id.ServerItem_Expiry};
         SimpleCursorAdapter servAdap = new SimpleCursorAdapter(this, R.layout.server_item,
                 sqlhelper.getAllServers(), serverData, serverRsc, CursorAdapter.FLAG_AUTO_REQUERY);
         server_spinner.setAdapter(servAdap);
@@ -442,7 +442,7 @@ public class MainActivity extends ExpandableListActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_preferences) {
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }

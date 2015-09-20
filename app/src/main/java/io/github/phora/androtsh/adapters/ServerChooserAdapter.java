@@ -37,8 +37,8 @@ public class ServerChooserAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         CheckableLinearLayout checkMe = (CheckableLinearLayout)view;
-        CheckedTextView baseUrlView = (CheckedTextView) view.findViewById(R.id.server_url);
-        TextView expiryView = (TextView) view.findViewById(R.id.expiry);
+        CheckedTextView baseUrlView = (CheckedTextView) view.findViewById(R.id.ServerItem_Url);
+        TextView expiryView = (TextView) view.findViewById(R.id.ServerItem_Expiry);
 
         if (URL_IDX == -1) {
             URL_IDX = cursor.getColumnIndex(DBHelper.BASE_URL);

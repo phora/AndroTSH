@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="io.github.phora.androtsh.activities.SettingsActivity"
-            android:label="@string/Title.SettingsActivity"
+            android:label="@string/Title.Activity.Settings"
             android:parentActivityName="io.github.phora.androtsh.activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

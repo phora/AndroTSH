@@ -1,5 +1,5 @@
 <resources>
-    <string name="Title.SettingsActivity">Preferences</string>
+    <string name="Title.Activity.Settings">Settings</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -11,7 +11,7 @@
     <string name="ServersFragment.AddServer">Add Server</string>
     <string name="ServersFragment.Exists">Already have server</string>
     <string name="ServersFragment.Exists.Msg">Please enter a url that you don\'t have yet.</string>
-    <string-array name="ServersFragment.Prefixes">
+    <string-array name="UrlPrefixes">
         <item>http://</item>
         <item>https://</item>
     </string-array>
