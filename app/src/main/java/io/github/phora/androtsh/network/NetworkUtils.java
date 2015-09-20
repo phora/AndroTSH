@@ -25,7 +25,7 @@ public class NetworkUtils {
     private static NetworkUtils nm;
     private static final String FULL_SPLITTY = "(%s)/([a-zA-Z0-9]+)/([^/]*)";
 
-    private Context c;
+    private Context context;
 
 
     public static NetworkUtils getInstance(Context ctxt) {
@@ -36,15 +36,15 @@ public class NetworkUtils {
     }
 
     private NetworkUtils(Context context) {
-        c = context;
+        this.context = context;
     }
 
-    public HttpURLConnection openConnection(String server_path) {
+    public HttpURLConnection openConnection(String serverPath) {
 
         URL url = null;
 
         try {
-            url = new URL(server_path);
+            url = new URL(serverPath);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class NetworkUtils {
         HttpURLConnection conn;
 
         try {
-            if (isConnectedToInternet(c)) {
+            if (isConnectedToInternet(context)) {
 
                 if (url != null) {
                     conn = (HttpURLConnection) url.openConnection();
@@ -63,7 +63,7 @@ public class NetworkUtils {
 
                 String loc = conn.getHeaderField("Location");
                 if (loc != null) {
-                    server_path = loc; //needed?
+                    serverPath = loc; //needed?
                     url = new URL(loc);
                 }
                 conn = (HttpURLConnection) url.openConnection();
@@ -90,7 +90,7 @@ public class NetworkUtils {
         return null;
     }
 
-    public List<UploadData> getUploadResults(String server_path, HttpURLConnection conn) throws IOException {
+    public List<UploadData> getUploadResults(String serverPath, HttpURLConnection conn) throws IOException {
         LinkedList<UploadData> output = new LinkedList<UploadData>();
 
         //should we flush request manually before going in here?
@@ -106,7 +106,7 @@ public class NetworkUtils {
             String lastToken = null;
             String lastServer = null;
             boolean thisIsGroup = false;
-            Pattern p = Pattern.compile(String.format(FULL_SPLITTY, Pattern.quote(server_path)));
+            Pattern p = Pattern.compile(String.format(FULL_SPLITTY, Pattern.quote(serverPath)));
 
             do {
                 try {

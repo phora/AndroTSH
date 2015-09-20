@@ -9,14 +9,14 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/big_header"
+        android:id="@+id/UploadGroup.BigHeader"
         android:text="HIHI"
         />
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/complete_url"
+        android:id="@+id/UploadGroup.CompleteUrl"
         android:text="HIHI"
         />
 

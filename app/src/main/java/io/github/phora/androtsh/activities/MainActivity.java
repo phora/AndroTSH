@@ -67,11 +67,11 @@ public class MainActivity extends ExpandableListActivity {
 
     private class UploadFilesTask extends AsyncTask<Uri, MsgOrInt, List<UploadData>>
     {
-        private final String server_url;
+        private final String serverUrl;
         private ProgressDialog pd;
 
-        public UploadFilesTask(String server_url) {
-            this.server_url = server_url;
+        public UploadFilesTask(String serverUrl) {
+            this.serverUrl = serverUrl;
         }
 
         @Override
@@ -81,7 +81,7 @@ public class MainActivity extends ExpandableListActivity {
 
 
             NetworkUtils nm = NetworkUtils.getInstance(getApplicationContext());
-            HttpURLConnection connection = nm.openConnection(this.server_url);
+            HttpURLConnection connection = nm.openConnection(this.serverUrl);
             DataOutputStream dos;
             RequestData rd;
 
@@ -112,7 +112,7 @@ public class MainActivity extends ExpandableListActivity {
             }
             try {
                 this.publishProgress(new MsgOrInt("Getting response from server", pd.getProgress()));
-                return nm.getUploadResults(this.server_url, connection);
+                return nm.getUploadResults(this.serverUrl, connection);
             } catch (IOException e) {
                 this.publishProgress(new MsgOrInt("Server did not respond", pd.getProgress()));
                 return null;
@@ -160,7 +160,7 @@ public class MainActivity extends ExpandableListActivity {
         context = this;
         //populateActivity();
 
-        server_spinner = (Spinner) findViewById(R.id.server_spinner);
+        server_spinner = (Spinner) findViewById(R.id.MainActivity_ServerSpinner);
         sqlhelper = DBHelper.getInstance(this);
 
 
@@ -168,14 +168,14 @@ public class MainActivity extends ExpandableListActivity {
         final String action = intent.getAction();
         String type = intent.getType();
 
-        String[] header_data = {"header", "complete_url", "dt"};
-        String[] header_item_data = {"header", "complete_url"};
-        int[] header_rsc = {R.id.big_header, R.id.complete_url, R.id.date};
-        int[] header_item_rsc = {R.id.big_header, R.id.complete_url};
+        String[] headerData = {"header", "complete_url", "dt"};
+        String[] headerItemData = {"header", "complete_url"};
+        int[] headerRsc = {R.id.UploadGroup_BigHeader, R.id.UploadGroup_CompleteUrl, R.id.UploadGroup_Date};
+        int[] headerItemRsc = {R.id.UploadGroup_BigHeader, R.id.UploadGroup_CompleteUrl};
         ExpandableListAdapter adapter = new UploadsCursorTreeAdapter(this,
                 R.layout.upload_group, R.layout.upload_group_item,
-                header_data, header_rsc,
-                header_item_data, header_item_rsc);
+                headerData, headerRsc,
+                headerItemData, headerItemRsc);
         setListAdapter(adapter);
 
         getExpandableListView().setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -208,9 +208,9 @@ public class MainActivity extends ExpandableListActivity {
             public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
                 int item_count = getExpandableListView().getCheckedItemCount();
                 if (item_count == 1) {
-                    actionMode.setSubtitle(getString(R.string.single_item));
+                    actionMode.setSubtitle(getString(R.string.CABMenu_SingleItem));
                 } else {
-                    actionMode.setSubtitle(String.format(getString(R.string.multiple_items), item_count));
+                    actionMode.setSubtitle(String.format(getString(R.string.CABMenu_MultipleItems), item_count));
                 }
             }
 
@@ -218,8 +218,8 @@ public class MainActivity extends ExpandableListActivity {
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                 actionModeEnabled = true;
                 MenuInflater mi = getMenuInflater();
-                actionMode.setTitle(getString(R.string.select_items));
-                actionMode.setSubtitle(getString(R.string.single_item));
+                actionMode.setTitle(getString(R.string.CABMenu_SelectItems));
+                actionMode.setSubtitle(getString(R.string.CABMenu_SingleItem));
                 mi.inflate(R.menu.uploads_cab_menu, menu);
                 return true;
             }
@@ -241,16 +241,16 @@ public class MainActivity extends ExpandableListActivity {
                     case R.id.copy_separate:
                         Log.d("ItemCAB", "Copied things as separate links");
                         s = getBatchSeparate();
-                        clipdata = ClipData.newPlainText(getResources().getString(R.string.message), s);
+                        clipdata = ClipData.newPlainText(getResources().getString(R.string.Copy_Label), s);
                         clipboard.setPrimaryClip(clipdata);
-                        Toast.makeText(context, getString(R.string.toast_copy), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, getString(R.string.Toast_Copy), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.copy_zipped:
                         Log.d("ItemCAB", "Copied things as combined zip");
                         s = getBatchZip();
-                        clipdata = ClipData.newPlainText(getResources().getString(R.string.message), s);
+                        clipdata = ClipData.newPlainText(getResources().getString(R.string.Copy_Label), s);
                         clipboard.setPrimaryClip(clipdata);
-                        Toast.makeText(context, getString(R.string.toast_copy_zip), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, getString(R.string.Toast_Copy_Zip), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.share_separate:
                         Log.d("ItemCAB", "Sharing as separate");
@@ -258,7 +258,7 @@ public class MainActivity extends ExpandableListActivity {
                         intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_TEXT, s);
-                        startActivity(Intent.createChooser(intent, getString(R.string.header_share)));
+                        startActivity(Intent.createChooser(intent, getString(R.string.Share_Title)));
                         break;
                     case R.id.share_zipped:
                         Log.d("ItemCAB", "Sharing as combined zip");
@@ -266,7 +266,7 @@ public class MainActivity extends ExpandableListActivity {
                         intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_TEXT, s);
-                        startActivity(Intent.createChooser(intent, getString(R.string.header_share_zip)));
+                        startActivity(Intent.createChooser(intent, getString(R.string.Share_Title_Zip)));
                         break;
                 }
                 return false;
@@ -278,11 +278,11 @@ public class MainActivity extends ExpandableListActivity {
             }
         });
 
-        String[] server_data = {"base_url", "expiry"};
-        int[] server_rsc = {R.id.server_url, R.id.expiry};
-        SimpleCursorAdapter serv_adap = new SimpleCursorAdapter(this, R.layout.server_item,
-                sqlhelper.getAllServers(), server_data, server_rsc, CursorAdapter.FLAG_AUTO_REQUERY);
-        server_spinner.setAdapter(serv_adap);
+        String[] serverData = {"base_url", "expiry"};
+        int[] serverRsc = {R.id.server_url, R.id.expiry};
+        SimpleCursorAdapter servAdap = new SimpleCursorAdapter(this, R.layout.server_item,
+                sqlhelper.getAllServers(), serverData, serverRsc, CursorAdapter.FLAG_AUTO_REQUERY);
+        server_spinner.setAdapter(servAdap);
 
         /* if ((Intent.ACTION_SEND.equals(action) || Intent.ACTION_SEND_MULTIPLE.equals(action)) && type != null) {
             Cursor selected_server = (Cursor)server_spinner.getSelectedItem();
@@ -311,8 +311,8 @@ public class MainActivity extends ExpandableListActivity {
                 Cursor c = (Cursor)getExpandableListView().getItemAtPosition(i);
                 if (c.getString(c.getColumnIndex("header")).equals("(multiple)")) {
                     long pid = c.getLong(c.getColumnIndex(DBHelper.COLUMN_ID));
-                    int child_count = getExpandableListAdapter().getChildrenCount(i);
-                    for (int j=0;j<child_count;j++) {
+                    int childrenCount = getExpandableListAdapter().getChildrenCount(i);
+                    for (int j=0;j<childrenCount;j++) {
                         Cursor chitem = (Cursor)getExpandableListAdapter().getChild(i, j);
                         ids.add(chitem.getLong(chitem.getColumnIndex(DBHelper.COLUMN_ID)));
                     }
@@ -322,13 +322,13 @@ public class MainActivity extends ExpandableListActivity {
                 }
             }
         }
-        Cursor group_downloads = sqlhelper.batchAsArchive(ids.toArray(new Long[ids.size()]), true);
-        for (int i=0;i<group_downloads.getCount();i++) {
-            group_downloads.moveToPosition(i);
-            sb.append(group_downloads.getString(group_downloads.getColumnIndex("tokpath")));
+        Cursor groupDownloads = sqlhelper.batchAsArchive(ids.toArray(new Long[ids.size()]), true);
+        for (int i=0;i<groupDownloads.getCount();i++) {
+            groupDownloads.moveToPosition(i);
+            sb.append(groupDownloads.getString(groupDownloads.getColumnIndex("tokpath")));
             sb.append("\n");
         }
-        group_downloads.close();
+        groupDownloads.close();
 
         return sb.toString();
     }
@@ -342,14 +342,14 @@ public class MainActivity extends ExpandableListActivity {
                 Cursor c = (Cursor)getExpandableListView().getItemAtPosition(i);
                 if (c.getString(c.getColumnIndex("header")).equals("(multiple)")) {
                     long pid = c.getLong(c.getColumnIndex(DBHelper.COLUMN_ID));
-                    Cursor group_download = sqlhelper.batchAsArchive(pid, true);
-                    group_download.moveToFirst();
+                    Cursor groupDownload = sqlhelper.batchAsArchive(pid, true);
+                    groupDownload.moveToFirst();
 
                     sb.append(c.getString(c.getColumnIndex(DBHelper.BASE_URL)));
                     sb.append("/");
-                    sb.append(group_download.getString(group_download.getColumnIndex("tokpath")));
+                    sb.append(groupDownload.getString(groupDownload.getColumnIndex("tokpath")));
                     sb.append("\n");
-                    group_download.close();
+                    groupDownload.close();
                 }
                 else {
                     sb.append(c.getString(c.getColumnIndex("complete_url")));
@@ -374,7 +374,7 @@ public class MainActivity extends ExpandableListActivity {
         requestFilesIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         requestFilesIntent.addCategory(Intent.CATEGORY_OPENABLE);
 
-        intent = Intent.createChooser(requestFilesIntent, getString(R.string.choose_files));
+        intent = Intent.createChooser(requestFilesIntent, getString(R.string.MainActivity_ChooseFiles));
         startActivityForResult(intent, PICKING_FOR_UPLOAD);
     }
 
@@ -382,25 +382,25 @@ public class MainActivity extends ExpandableListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICKING_FOR_UPLOAD) {
             if (resultCode == RESULT_OK) {
-                Uri single_data = data.getData();
+                Uri singleData = data.getData();
                 ClipData clippy = data.getClipData();
 
-                Cursor selected_server = (Cursor)server_spinner.getSelectedItem();
-                String server_path = selected_server.getString(selected_server.getColumnIndex(DBHelper.BASE_URL));
+                Cursor selectedServer = (Cursor)server_spinner.getSelectedItem();
+                String serverPath = selectedServer.getString(selectedServer.getColumnIndex(DBHelper.BASE_URL));
 
                 if (clippy != null) {
                     //clipdata holds uris
-                    Log.d("MainActivity", String.format(getString(R.string.picked_multiple), clippy.getItemCount()));
-                    Uri[] all_the_files = new Uri[clippy.getItemCount()];
+                    Log.d("MainActivity", String.format(getString(R.string.MainActivity_PickedMultiple), clippy.getItemCount()));
+                    Uri[] allTheFiles = new Uri[clippy.getItemCount()];
                     for (int i=0;i<clippy.getItemCount();i++) {
-                        all_the_files[i] = clippy.getItemAt(i).getUri();
+                        allTheFiles[i] = clippy.getItemAt(i).getUri();
                     }
-                    new UploadFilesTask(server_path).execute(all_the_files);
+                    new UploadFilesTask(serverPath).execute(allTheFiles);
                 }
-                else if (single_data != null) {
-                    Log.d("MainActivity", getString(R.string.picked_single));
-                    //Log.d("MainActivity", FileUtils.getPath(getApplicationContext(), single_data));
-                    new UploadFilesTask(server_path).execute(single_data);
+                else if (singleData != null) {
+                    Log.d("MainActivity", getString(R.string.MainActivity_PickedSingle));
+                    //Log.d("MainActivity", FileUtils.getPath(getApplicationContext(), singleData));
+                    new UploadFilesTask(serverPath).execute(singleData);
                 }
                 //do something
             }
@@ -408,14 +408,14 @@ public class MainActivity extends ExpandableListActivity {
     }
 
     private void addUploads(List<UploadData> uploads) {
-        long parent_id = -1;
+        long parentId = -1;
 
         for (UploadData ud: uploads) {
             if (ud.getFPath() == null) {
-                parent_id = sqlhelper.addUpload(ud.getServerUrl(), ud.getToken(), null);
+                parentId = sqlhelper.addUpload(ud.getServerUrl(), ud.getToken(), null);
             }
-            else if (parent_id != -1) {
-                sqlhelper.addUpload(ud.getServerUrl(), ud.getToken(), ud.getFPath(), parent_id, false);
+            else if (parentId != -1) {
+                sqlhelper.addUpload(ud.getServerUrl(), ud.getToken(), ud.getFPath(), parentId, false);
             }
             else {
                 sqlhelper.addUpload(ud.getServerUrl(), ud.getToken(), ud.getFPath());
@@ -458,9 +458,9 @@ public class MainActivity extends ExpandableListActivity {
                 verName = null;
             }
             TextView textView = (TextView)view.findViewById(R.id.AboutDialog_Version);
-            textView.setText(getString(R.string.about_ver, verName));
+            textView.setText(getString(R.string.About_Version, verName));
 
-            builder.setTitle(getString(R.string.about_app, getString(R.string.app_name)));
+            builder.setTitle(getString(R.string.About_App, getString(R.string.AppName)));
             builder.setView(view);
             builder.setNegativeButton(R.string.OK, null);
             builder.create().show();

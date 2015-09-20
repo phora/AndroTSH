@@ -11,9 +11,9 @@
     <item android:id="@+id/copy_zipped"
           android:icon="@drawable/ic_menu_copy_zip"
           android:showAsAction="ifRoom"
-          android:title="@string/copy_zip" />
+          android:title="@string/CABMenu.Copy.Zip" />
     <item android:id="@+id/share_zipped"
           android:icon="@drawable/ic_menu_share_zip"
           android:showAsAction="ifRoom"
-          android:title="@string/share_zip" />
+          android:title="@string/CABMenu.Share.Zip" />
 </menu>

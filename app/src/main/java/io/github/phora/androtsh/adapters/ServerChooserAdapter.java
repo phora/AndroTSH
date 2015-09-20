@@ -23,7 +23,7 @@ public class ServerChooserAdapter extends ResourceCursorAdapter {
     private static int EXPIR_IDX = -1;
     private static int DEF_IDX = -1;
 
-    private long cur_id = -1;
+    private long curId = -1;
 
 
     public ServerChooserAdapter(Context context, Cursor c, boolean autoRequery) {
@@ -36,9 +36,9 @@ public class ServerChooserAdapter extends ResourceCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        CheckableLinearLayout checkme = (CheckableLinearLayout)view;
-        CheckedTextView base_url_view = (CheckedTextView) view.findViewById(R.id.server_url);
-        TextView expiry_view = (TextView) view.findViewById(R.id.expiry);
+        CheckableLinearLayout checkMe = (CheckableLinearLayout)view;
+        CheckedTextView baseUrlView = (CheckedTextView) view.findViewById(R.id.server_url);
+        TextView expiryView = (TextView) view.findViewById(R.id.expiry);
 
         if (URL_IDX == -1) {
             URL_IDX = cursor.getColumnIndex(DBHelper.BASE_URL);
@@ -56,13 +56,13 @@ public class ServerChooserAdapter extends ResourceCursorAdapter {
 
         Log.d("ServerChooserAdapter", "def flag: "+cursor.getInt(DEF_IDX));
 
-        checkme.setChecked(isChecked);
-        base_url_view.setText(base_url);
-        expiry_view.setText(expiry);
+        checkMe.setChecked(isChecked);
+        baseUrlView.setText(base_url);
+        expiryView.setText(expiry);
 
         if (isChecked) {
             Log.d("ServerChooserAdapter", base_url + " is the default");
-            cur_id = cursor.getLong(cursor.getColumnIndex(DBHelper.COLUMN_ID));
+            curId = cursor.getLong(cursor.getColumnIndex(DBHelper.COLUMN_ID));
         }
     }
 
@@ -82,10 +82,10 @@ public class ServerChooserAdapter extends ResourceCursorAdapter {
     }
 
     public long getCurId() {
-        return cur_id;
+        return curId;
     }
 
     public void setCurId(long curId) {
-        cur_id = curId;
+        this.curId = curId;
     }
 }

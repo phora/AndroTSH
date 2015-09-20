@@ -4,22 +4,22 @@ package io.github.phora.androtsh.network;
  * Created by phora on 8/24/15.
  */
 public class UploadData {
-    private String server_url;
+    private String serverUrl;
     private String token;
     private String fpath;
 
-    public UploadData(String server_url, String token, String fpath) {
-        this.server_url = server_url;
+    public UploadData(String serverUrl, String token, String fpath) {
+        this.serverUrl = serverUrl;
         this.token = token;
         this.fpath = fpath;
     }
 
     public String getServerUrl() {
-        return server_url;
+        return serverUrl;
     }
 
     public void setServerUrl(String server_url) {
-        this.server_url = server_url;
+        this.serverUrl = server_url;
     }
 
     public String getToken() {

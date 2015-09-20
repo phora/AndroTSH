@@ -71,23 +71,23 @@ public class DBHelper extends SQLiteOpenHelper {
         database.insert(TABLE_SERVERS, null, cv);
     }
 
-    public void addServer(String base_url, int server_duration)
+    public void addServer(String baseUrl, int server_duration)
     {
         ContentValues cv = new ContentValues();
-        cv.put(BASE_URL, base_url);
+        cv.put(BASE_URL, baseUrl);
         cv.put(SERVER_DURATION, server_duration);
         cv.put(SERVER_DEFAULT, false);
 
         getWritableDatabase().insertOrThrow(TABLE_SERVERS, null, cv);
     }
 
-    public long addUpload(String base_url, String token, String fpath) {
-        return addUpload(base_url, token, fpath, -1, true);
+    public long addUpload(String baseUrl, String token, String fpath) {
+        return addUpload(baseUrl, token, fpath, -1, true);
     }
 
-    public long addUpload(String base_url, String token, String fpath, long pid, boolean includeDate) {
+    public long addUpload(String baseUrl, String token, String fpath, long pid, boolean includeDate) {
         ContentValues cv = new ContentValues();
-        cv.put(BASE_URL, base_url);
+        cv.put(BASE_URL, baseUrl);
         cv.put(UPLOAD_TOKEN, token);
         cv.put(UPLOADED_FPATH, fpath);
         cv.put(COLUMN_PID, pid);
@@ -124,21 +124,21 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor c = db.rawQuery(THESE_EXPIRED_MAIN, null);
-        LinkedList<String> id_holders = new LinkedList<String>();
+        LinkedList<String> idHolders = new LinkedList<String>();
 
         for (int i=0;i<c.getCount();i++) {
             c.moveToPosition(i);
             String pid = String.valueOf(c.getLong(c.getColumnIndex(COLUMN_ID)));
-            id_holders.add(pid);
+            idHolders.add(pid);
             db.delete(TABLE_UPLOADS, "_pid = ?", new String[]{pid});
         }
         c.close();
-        if (id_holders.size() > 0) {
-            int count = id_holders.size();
-            String whereClause = String.format("_id IN (%s)", makePlaceholders(id_holders.size()));
+        if (idHolders.size() > 0) {
+            int count = idHolders.size();
+            String whereClause = String.format("_id IN (%s)", makePlaceholders(idHolders.size()));
             String[] whereArgs = new String[count];
             for (int i = 0; i < count; i++) {
-                whereArgs[i] = id_holders.get(i).toString();
+                whereArgs[i] = idHolders.get(i).toString();
             }
             db.delete(TABLE_UPLOADS, whereClause, whereArgs);
         }
@@ -237,12 +237,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllServers(boolean ordering) {
         String[] fields = {COLUMN_ID, BASE_URL, "(" + SERVER_DURATION + " || ' days' ) as expiry", SERVER_DEFAULT };
-        String order_by = null;
+        String orderBy = null;
         if (ordering) {
-            order_by = SERVER_DEFAULT+" DESC";
+            orderBy = SERVER_DEFAULT+" DESC";
         }
         return getReadableDatabase().query(TABLE_SERVERS, fields, null, null,
-                null, null, order_by);
+                null, null, orderBy);
     }
 
     public void deleteServer(long oldID)

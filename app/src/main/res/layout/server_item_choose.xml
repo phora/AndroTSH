@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <CheckedTextView android:id="@+id/server_url"
+    <CheckedTextView android:id="@+id/serverUrl"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:checkMark="?android:attr/listChoiceIndicatorSingle" />
